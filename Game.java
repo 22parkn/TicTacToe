@@ -4,6 +4,7 @@ public class Game {
   public char[] board = new char[9];
   User player1 = new User();
   User player2 = new User();
+  int mark;
   // you don't need to initialize it here, since you assign it to 
   // player1 in the constructor
   User currentPlayer;
@@ -22,9 +23,16 @@ public class Game {
      System.out.println (currentPlayer.symbol + "'s' turn");
    }
    
-  
+   public void printBoard() {
+    System.out.println(board[0] + " | " + board[1] + " | " + board[2]);
+    System.out.println("----------");
+    System.out.println(board[3] + " | " + board[4] + " | " + board[5]);
+    System.out.println("----------");
+    System.out.println(board[6] + " | " + board[7] + " | " + board[8]);
+  }
+  /*
    public double Winner() {
-     String line;
+    boolean line;
    if (line = board[0] + board[1] + board[2]) {
     break; 
    }
@@ -61,13 +69,6 @@ public class Game {
    * board[2] = ' '; board[3] = ' ';
    */
 
-  public void printBoard() {
-    System.out.println(board[0] + " | " + board[1] + " | " + board[2]);
-    System.out.println("----------");
-    System.out.println(board[3] + " | " + board[4] + " | " + board[5]);
-    System.out.println("----------");
-    System.out.println(board[6] + " | " + board[7] + " | " + board[8]);
-  }
   // this needs to go in its own method
   public void putMarker() {
     Scanner scan = new Scanner(System.in);
