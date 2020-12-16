@@ -5,6 +5,9 @@ public class Game {
   User player1 = new User();
   User player2 = new User();
   int mark;
+  boolean win;
+  boolean tie;
+  boolean go;
   public static char turn = 'X';
   String winner = null;
   // you don't need to initialize it here, since you assign it to
@@ -21,12 +24,6 @@ public class Game {
     }
   }
 
-  /* putMarker(); */
-
-  public void playerTurn() {
-    System.out.println(currentPlayer.symbol + "'s' turn");
-  }
-
   public void printBoard() {
     System.out.println(board[0] + " | " + board[1] + " | " + board[2]);
     System.out.println("----------");
@@ -35,18 +32,20 @@ public class Game {
     System.out.println(board[6] + " | " + board[7] + " | " + board[8]);
   }
 
-  /*
-   * public boolean checkWinner() { 
-     boolean line; 
+  public boolean checkWinner() { 
+     String line; 
    while(winner==null) { if (line =
-   * board[0] + board[1] + board[2]) { break; } else if (line = board[3] +
-   * board[4] + board[5]) { break; } else if (line = board[6] + board[7] +
-   * board[8]) { break; } else if (line = board[0] + board[3] + board[6]) { break;
-   * } else if (line = board[1] + board[4] + board[7]) { break; } else if (line =
-   * board[2] + board[5] + board[8]) { break; } else if (line = board[0] +
-   * board[4] + board[8]) { break; } else if (line = board[2] + board[4] +
-   * board[6]) { break; } else { System.out.println("Tie"); break; } } }
-   */
+   board[0] + board[1] + board[2]) { currentPlayer = win; } else if (line = board[3] +
+   board[4] + board[5]) { currentPlayer = win; } else if (line = board[6] + board[7] +
+   board[8]) { currentPlayer = win; } else if (line = board[0] + board[3] + board[6]) { currentPlayer = win;
+   } else if (line = board[1] + board[4] + board[7]) { currentPlayer = win; } else if (line =
+   board[2] + board[5] + board[8]) { currentPlayer = win; } else if (line = board[0] +
+   board[4] + board[8]) { currentPlayer = win; } else if (line = board[2] + board[4] +
+   board[6]) { currentPlayer = win; }
+   else if { currentPlayer = tie; } else { currentPlayer = go;}
+   if (currentPlayer = win) {
+     System.out.println (currentPlayer + "has won!");
+   break;}}}
 
   /*
    * what the for loop is replacing - Dr. Frewen board[0] = ' '; board[1] = ' ';
@@ -59,6 +58,7 @@ public class Game {
     boolean pTurn = true;
     Scanner scan = new Scanner(System.in);
     while (pTurn) {
+      System.out.println(currentPlayer.symbol + "'s' turn");
       // declare the scanner outside of the while loop to save memory
       System.out.println("Enter a number 0-8: ");
       while (!scan.hasNextInt()) {
@@ -78,14 +78,17 @@ public class Game {
       }
     }
   }
+
   public void runGame() {
-    putMarker();
-    checkWinner();
-    if (currentPlayer.equals(player1)) {
-      currentPlayer = player2;
-    }
-    else {
-      currentPlayer = player1;
+    while (winner == null) {
+      putMarker();
+      playerTurn();
+      // checkWinner();
+      if (currentPlayer.equals(player1)) {
+        currentPlayer = player2;
+      } else {
+        currentPlayer = player1;
+      }
     }
   }
 }
