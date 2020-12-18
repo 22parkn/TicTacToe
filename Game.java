@@ -6,6 +6,7 @@ public class Game {
   User player2 = new User();
   boolean win;
   boolean tie;
+  boolean cWin = true;
   // you don't need to initialize it here, since you assign it to
   // player1 in the constructor
   User currentPlayer;
@@ -17,6 +18,8 @@ public class Game {
     for (int i = 0; i < 9; i++) {
       board[i] = ' ';
     }
+    printBoard();
+    putMarker();
   }
 
   public void printBoard() {
@@ -28,6 +31,7 @@ public class Game {
   }
 
   public void checkWinner() { 
+    while (cWin) {
     if ((board[0] == board[1]) && (board[1] == board[2])) { 
       win = true;
       return;
@@ -55,7 +59,11 @@ public class Game {
     } else { 
       checkTie(); 
       //running method checkTie here instead of in runGame. 
-   }}
+   }
+    if (win = true) {
+      System.out.println ("Congrats! " + currentPlayer.symbol + " has won");
+      //this part doesn't print out, nor does the game end when there is a 3 in a row
+    }}}
   
   public void checkTie() {
     for (int i = 0; i < 9; i++) {
@@ -64,6 +72,7 @@ public class Game {
       }
     }
     tie = true;
+    System.out.println ("Tie game.");
   }
   /*
    * what the for loop is replacing - Dr. Frewen board[0] = ' '; board[1] = ' ';
@@ -74,13 +83,16 @@ public class Game {
   public void putMarker() {
     boolean pTurn = true;
     Scanner scan = new Scanner(System.in);
+      System.out.println ("Welcome to multiplayer tictactoe.");
+      System.out.println ("Rules: Enter a number 0-8(0 being the top left, 1 top middle, 2 top right, 3 middle left... and so on. If you enter a value in a slot that is already taken, your move will be skipped.");
     while (pTurn) {
-      System.out.println(currentPlayer.symbol + "'s' turn");
+      System.out.println("It is " + currentPlayer.symbol + "'s turn");
       // declare the scanner outside of the while loop to save memory
       System.out.println("Enter a number 0-8: ");
       while (!scan.hasNextInt()) {
         System.out.print("That is not a valid integer. Please type a valid integer: ");
         scan.nextLine();
+        //if the user inputs an invalid number, it will skip to the next players turn.
       }
       // confirm that it is an int first. This will crash if a non-number
       // is given
@@ -90,21 +102,22 @@ public class Game {
       } else if (board[mark] != ' ') {
         System.out.println("That spot is taken");
       } else {
-        pTurn = false;
         board[mark] = currentPlayer.symbol;
+        printBoard();
+        checkWinner();
       }
-    }
-  }
-
-  public void runGame() {
-    while ((win = false) && (tie = false)) {
-      putMarker();
-      checkWinner();
       if (currentPlayer.equals(player1)) {
         currentPlayer = player2;
       } else {
         currentPlayer = player1;
       }
     }
+    }
+
+  public void runGame() {
+    if ((win = true) || (tie = true)) {
+      putMarker();
+      checkWinner();
   }
+}
 }
